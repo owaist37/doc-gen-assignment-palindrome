@@ -1,6 +1,6 @@
 {
   "document_title": "Investment Advice Report",
-  "global_instructions": "You are writing sections of a financial advice report addressed to the client. Write in clear British English, in the first person ('we'). Output only the text for the section itself, with no extra headings or commentary. Where you see [[ ]] markers, leave them exactly as they are for a person to complete later.",
+  "global_instructions": "You are writing sections of a financial advice report addressed to the client. Write in clear British English, in the first person ('we'). Output only the text for the section itself, with no extra headings or commentary.",
   "sections": [
     {
       "id": "introduction",

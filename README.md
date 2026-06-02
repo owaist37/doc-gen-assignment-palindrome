@@ -1,7 +1,7 @@
 # doc-gen-assignment
 
-A small, config-driven pipeline that turns a client's source material into an advice report.
-See **`PROJECT_GUIDANCE.md`** for the exercise itself — start there.
+A small config-driven pipeline that turns a client's source material into an advice report. Start
+with `PROJECT_GUIDANCE.md`; it describes the exercise.
 
 ## Setup
 
@@ -23,7 +23,7 @@ Available clients live under `data/`:
 - `client_01_clean`
 - `client_02_medium`
 - `client_03_hard`
-- `client_04_stretch` — large and messy on purpose; a deliberate stretch
+- `client_04_stretch` (large and messy on purpose; a deliberate stretch)
 
 ## How it fits together
 
@@ -40,12 +40,16 @@ pipeline/formatter.py         assembles the sections into the final .md document
 outputs/<client>.md
 ```
 
-You will mostly edit `config/template_config.json`. You're free to change anything in
-`pipeline/` too.
+## The pipeline is deliberately minimal
+
+What you are given is the smallest setup that runs end to end. It works, but it is naive: one model
+call per section, every source dumped into every prompt, a single model, and no tools. Improving it
+is part of the task; weigh speed, cost, and effectiveness (see `PROJECT_GUIDANCE.md`). Most of your
+work will be in `config/template_config.json`; the pipeline code is yours to improve too.
 
 ## Notes
 
 - The scaffold makes live OpenAI calls; you need a working key in `.env`.
-- There are no "expected output" files — deciding what correct looks like (and checking it) is
-  part of the task.
+- There are no expected-output files. Deciding what correct looks like, and checking it, is part of
+  the task.
 - Commit as you go; we read the history.

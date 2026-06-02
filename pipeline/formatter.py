@@ -1,6 +1,6 @@
 """Assemble generated section content into the final markdown document.
 
-This is provided for you and works as-is — you shouldn't need to change it. It turns the list
+This is provided for you and works as-is; you shouldn't need to change it. It turns the list
 of generated sections into a single document. If you want a different output format, this is
 where it would live.
 """

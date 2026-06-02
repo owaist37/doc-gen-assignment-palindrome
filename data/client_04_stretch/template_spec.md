@@ -1,4 +1,4 @@
-# Report specification — Investment Advice Report
+# Report specification: Investment Advice Report
 
 What each section of the report must contain. The same specification applies to every client.
 
@@ -18,14 +18,14 @@ What each section of the report must contain. The same specification applies to 
 - e.g. mention any platform charges relevant to the recommendation.
 
 ## Tax Implications
-- Include this section ONLY if the recommendation involves selling/disposing of investments that
+- Include this section ONLY if the recommendation involves selling or disposing of investments that
   may create a taxable capital gain. If nothing is being sold, omit the section entirely.
-- The capital gains figures are checked by a person before the report is issued. Leave them as a
-  [[ ]] marker; do not calculate them.
+- State that the disposal may create a capital gains tax liability, assessed against the annual
+  exempt amount.
 
 ## Fees & Charges
-- The ongoing fees and charges. The percentage and pound figures are verified by a person — leave
-  them as [[ ]] markers.
+- Set out the ongoing fees and charges that apply: the platform charge and the ongoing advice
+  charge.
 
 ## Conclusion
 - Must include this risk warning, word for word:
