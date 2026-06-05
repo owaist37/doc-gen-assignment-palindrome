@@ -2,18 +2,17 @@
 
 ## The problem
 
-We turn a client's raw source material into a near-final advice document. A human adviser then
-reviews it and signs it off. You are given a working pipeline that does this, four clients' worth of
-source material, and a config that defines the report. Your job is to make the reports correct, and
-to improve the pipeline.
+You need to review the data in the client folder which contains both structured and unstructured data
+which is required to generate the report. This output format should follow the template_spec.md sections
+and content. fde_notes.md contains notes that a colleague made on the case, note these may be incomplete, 
+and you will have to review the data yourself if there are other nuances in the data to discover (e.g. 
+conflicting information, data hierarchy, etc.).
 
-The pipeline you are given is the bare minimum that runs. It works, but it is naive: one model call
-per section, every source dumped into every prompt, a single model for everything, and no tools. A
-frontier model on its own will not get these reports right. The data has values that disagree
-between sources, values that are out of date, gaps, accounts recorded twice, and figures that must
-not be filled in automatically. Getting it right takes structured prompts, choosing the right source
-for each value, sometimes splitting work across calls or tools, and catching errors before they
-reach the client. That is the work.
+The existing pipeline you are given is the bare minimum that runs. It works, but it is naive - and will
+need to be improved. A frontier model on its own will not get these reports right. There are intentional 
+data quality issues, getting it right takes good data investigation and problem solving, then making it into 
+a well planned agentic system and having thorough, structured prompt tuning. You will want to set up an
+evaluation pipeline, to ensure that the pipeline is working as expected and to validate your outputs quantiatively. 
 
 ## What you are given
 
@@ -23,7 +22,7 @@ pipeline/
   generate.py          reads the config and a client's data, produces a report
   formatter.py         turns section content into the final .md (leave as-is)
 config/
-  template_config.json the report definition; this is where most of your work goes
+  template_config.json the report definition; >> most of your work goes
 outputs/               generated reports land here
 ```
 
@@ -67,12 +66,7 @@ templates, and how each value is sourced are the main levers you have.
    stretch; we want to see how you approach it.
 
 2. **Improve the pipeline.** What you are given is the minimum that works, and it can be improved a
-   lot. Weigh speed, cost, and effectiveness. Some directions:
-   - run work in parallel instead of one call after another;
-   - fetch specific values with a tool or lookup instead of putting every source in every prompt;
-   - use a cheaper or a stronger model per task;
-   - resolve a fact once and reuse it instead of re-deriving it per section;
-   - add a step that checks or cleans the output before it is final.
+   lot. Weigh speed, cost, and effectiveness - it is currently not an agentic system, just llm calls.
 
    Use whatever models and structure you think are right, and say why.
 
@@ -123,3 +117,10 @@ We weigh judgement over software polish:
 - How is the agent setup put together, and how would you take it further?
 
 Clean code matters, but it is not the headline. Questions are welcome; ask us anything.
+
+## What happens next
+
+We read through your code, config, and decisions. Then, in the interview, we'll ask you to walk us
+through it: how you approached the problem, where the hard parts were, how you got round them, and
+what you settled on. Present it however you like: slides, a short write-up, a demo, or just talking
+over the code. Keep enough notes as you go that you can tell that story.
