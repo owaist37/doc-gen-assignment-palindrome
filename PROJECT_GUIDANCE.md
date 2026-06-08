@@ -10,9 +10,12 @@ conflicting information, data hierarchy, etc.).
 
 The existing pipeline you are given is the bare minimum that runs. It works, but it is naive - and will
 need to be improved. A frontier model on its own will not get these reports right. There are intentional 
-data quality issues, getting it right takes good data investigation and problem solving, then making it into 
-a well planned agentic system and having thorough, structured prompt tuning. You will want to set up an
-evaluation pipeline, to ensure that the pipeline is working as expected and to validate your outputs quantiatively. 
+data quality issues. Getting it right takes good data investigation and problem solving, then building it
+into a well-planned agentic system with thorough, structured prompt tuning. You will want to set up an
+evaluation pipeline, to ensure that the pipeline is working as expected and to validate your outputs quantitatively. 
+
+Use any tools and AI assistants you like; we want you to work as you normally would. Just ensure you own the
+design decisions that you make, and ensure you understand the input data for each client yourself.
 
 ## What you are given
 
@@ -38,7 +41,7 @@ Each client folder holds:
 - `template_spec.md`: what each section of the report should contain.
 
 A client folder may also contain other files, and not everything in it is relevant to the report.
-Some sources are more reliable than others. Deciding what to feed the model is part of the task: the
+Some sources are more relevant than others. Deciding what to feed the model is part of the task: the
 starter pipeline naively loads every file in the folder and pushes all of it into every prompt.
 
 ## The config
@@ -62,7 +65,8 @@ the `scope` placeholder's `prompt` says how to fill it. The prompts, the `use_if
 templates, and how each value is sourced are the main levers you have.
 
 ## What to do
-We recommend understanding the daata clearly
+
+We recommend understanding the data clearly before you begin.
 
 1. **Make the reports correct.** Work through the clients, `client_01_clean` to
    `client_04_stretch`. Each report should reflect that client's situation and the adviser's
@@ -73,8 +77,10 @@ We recommend understanding the daata clearly
 
 2. **Improve the pipeline.** What you are given is the minimum that works, and it can be improved a
    lot. Weigh speed, cost, and effectiveness - it is currently not an agentic system, just llm calls.
-
-   Use whatever models and structure you think are right, and say why.
+   
+   *You do not have to build the perfect, production-ready system in the time you have. Be clear about
+   what you have done now and what you would take further for production with more time; we care as
+   much about that judgement as about the code.*
 
 3. **Write your own evaluation.** We do not give you expected outputs. Decide what correct means for
    these reports, and write something that checks it.
@@ -82,9 +88,9 @@ We recommend understanding the daata clearly
 4. **Keep a short decisions log** (`DECISIONS.md`): the hardest calls you made and why, and how you
    would improve the pipeline and the agent setup if you took it further.
   
-5. **Code Review/Presetation**: After submitting your solution, we will review it. In the next stage 
-   you will present how you approached the problem, any trade-offs you made, the final solution that 
-   you have made. You present/explain this to use in anyway you see fit.  
+5. **Code review and presentation.** After you submit, we review your code. Then, in a follow-up
+   stage, you walk us through how you approached the problem, the trade-offs you made, and the
+   solution you landed on. Present it however you like.
 
 ## Do not overfit
 
@@ -112,7 +118,8 @@ These are optional. A focused, correct core beats a broad, shaky one.
   history, so let it show your thinking rather than one final dump.
 - Use whatever AI and coding tools you like.
 - Send us your fork URL. It should contain your `config/`, your `src/`, your eval, your
-  `DECISIONS.md`, and the generated reports in `outputs/`.
+  `DECISIONS.md`, and the generated reports in `outputs/`. We will re-run the generation ourselves from your fork, so
+  it needs to run end to end from a clean checkout. 
 
 ## How we assess it
 
