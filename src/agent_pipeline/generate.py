@@ -58,11 +58,13 @@ class ReportGenerator:
         return content
 
     def _ask(self, instruction: str, context: str) -> str:
-        response = self._openai.responses.create(
+        response = self._openai.chat.completions.create(
             model=self._model,
-            input=f"{context}\n\n---\n\n{instruction}",
+            messages=[
+                {"role": "user", "content": f"{context}\n\n---\n\n{instruction}"}
+            ],
         )
-        return response.output_text.strip()
+        return response.choices[0].message.content.strip()
 
 
 def read_client_context(client_dir: Path, filenames: list[str]) -> str:
