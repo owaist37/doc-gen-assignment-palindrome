@@ -37,6 +37,9 @@ With the future structure we could also use the current breakdown of steps to cr
 ### Client 01
 Client 01 focuses on two things the first is that the capital gains tax on any disposal and the platform and adviser fees rates are confirmed before sending out to the recipants. We can see from the Fees & Charges section this is currently included in the output. This is currently done by chaning the prompts for capital gains tax and the fees. The FCA line is already fixed and therefore cannot be re-written. From the updated output we can see that the llm now does not make up the fees. Capital gains tax in this case is not applicable. 
 
+### Client 02
+For the conclusion the template has been updated to add in the standard risk statement the same way it is for the FCA regulation statement rather than being generated which could cause issues. This also makes it more inline with the template specification.
+
 
 ## Determinisitic Processes
 ### Client 02
