@@ -13,6 +13,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 from openai import OpenAI
 
+from agent_pipeline.accounts import format_accounts, load_accounts
 from document_formatter.formatting import format_document
 from document_formatter.loading import read_file
 
@@ -72,7 +73,13 @@ def read_client_context(client_dir: Path, filenames: list[str]) -> str:
     """Read the named files from the client folder and concatenate them into one context string."""
     parts = []
     for name in filenames:
-        parts.append(f"=== {name} ===\n{read_file(client_dir / name)}")
+        if name == "client_data_db.json":
+            db_path = client_dir / name
+            db = json.loads(db_path.read_text(encoding="utf-8"))
+            content = format_accounts(db["snapshot_date"], load_accounts(db_path))
+        else:
+            content = read_file(client_dir / name)
+        parts.append(f"=== {name} ===\n{content}")
     return "\n\n".join(parts)
 
 
@@ -108,6 +115,14 @@ def main() -> None:
     out_path = run_dir / f"{args.client}.md"
     out_path.write_text(report, encoding="utf-8")
     print(f"Wrote {out_path}")
+
+    db_path = client_dir / "client_data_db.json"
+    if db_path.exists():
+        db = json.loads(db_path.read_text(encoding="utf-8"))
+        accounts_json = format_accounts(db["snapshot_date"], load_accounts(db_path))
+        accounts_path = run_dir / "accounts.json"
+        accounts_path.write_text(accounts_json, encoding="utf-8")
+        print(f"Wrote {accounts_path}")
 
 
 if __name__ == "__main__":
