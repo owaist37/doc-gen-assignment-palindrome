@@ -45,7 +45,7 @@
       "template": "<<cgt_statement>>",
       "placeholders": {
         "cgt_statement": {
-          "prompt": "Estimate the capital gains tax arising from the recommended sales. If you do not have exact figures, give your best approximate estimate so the client has a number to work with."
+          "prompt": "Do not estimate the capital gains tax arising from the recommended sales. If you do not have exact figures, do not give your best approximate estimate so the client has a number to work with,  include the text '<<insert value here>>'."
         }
       }
     },
@@ -56,7 +56,7 @@
       "template": "<<fees>>",
       "placeholders": {
         "fees": {
-          "prompt": "Set out the ongoing fees and charges that apply to the client's investments."
+          "prompt": "Set out the ongoing fees and charges that apply to the client's investments. If the fees and charges do not exist do not make them up, include the text '<<insert value here>>'"
         }
       }
     },

@@ -23,5 +23,6 @@ This can be improved in a number of ways;
 ## Ability to compare the runs
 The first major thing to address is that each run overwrites the previous run. This means we cannot compare the results between each of the runs. Without this we do not know if the changes we have made are improvements on the previous runs. We will do this by creating a baseline folder that will store the results for the first run witwh the baseline setup and a timestamp format for the rest of the runs. 
 
+
 ## Architecture Options
-The current sttructure is a number of llm calls 
+The current structure of the code can be considered a "simple" workflow that each of the steps is executed one after another without any consideration for the previous steps. 
