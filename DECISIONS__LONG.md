@@ -11,14 +11,16 @@ The current structure calls an a llm that at each stage;
 
 This can be improved in a number of ways alongside what is suggested by the FDE;
 - overwrite the result each run
-- Move towards and agentic workflow
 - Update prompts to include constraints and more details around what is and is not needed
-- Move to determinanistic calculations for numerical calculations 
-- Use fixed text inserts for text that must be in every section 
+- Move to determinanistic calculations for numerical calculations
+
+
 - Make use_if more determenistic as it can change between different runs and currently based on an LLM reply which could respond with a different value
 - Remove full documnent parsing for every llm call
 - Add a feedback loop for each of the sections to validate the outputs
 - Add a method for evaluating the outputs for each of the runs
+- Move towards and agentic workflow
+
 
 ## Ability to compare the runs
 The first major thing to address is that each run overwrites the previous run. This means we cannot compare the results between each of the runs. Without this we do not know if the changes we have made are improvements on the previous runs. We will do this by creating a baseline folder that will store the results for the first run witwh the baseline setup and a timestamp format for the rest of the runs. 
@@ -40,4 +42,4 @@ Client 01 focuses on two things the first is that the capital gains tax on any d
 ### Client 02
 The first thing we need to cover with client 2 is how the the values that go into the reports are generated, the first step is per database to get a single record for each of the accounts that is passed to the llm. This will reduce the token count and the amount of information the llm will have to process. It will also reduce any changes of hulucinations of figures. 
 
-The next step is to create a pre-populated holidings table and access if any of the uploaded documents is a 
+The next step is to create a pre-populated holidings table rather than letting the llm create it as this will improve accuracy. The prompt can then be updated to include the conflict resolution with the statement_summary file. Alternatively this could be done in the table creation or have a tool created for it. 

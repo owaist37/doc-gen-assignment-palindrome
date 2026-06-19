@@ -68,3 +68,18 @@ def load_accounts(db_path: Path) -> list[dict]:
 
 def format_accounts(snapshot_date: str, accounts: list[dict]) -> str:
     return json.dumps({"snapshot_date": snapshot_date, "accounts": accounts}, indent=2)
+
+
+def build_holdings_table(accounts: list[dict]) -> str:
+    """Return a deterministic markdown table with columns Account | Owner | Type | Value."""
+    lines = [
+        "| Account | Owner | Type | Value |",
+    ]
+    for acc in accounts:
+        owner = "Joint" if acc.get("owner_type") == "joint" else (acc.get("owner") or "—")
+        value = acc.get("value")
+        value_str = f"£{value:,.2f}" if value is not None else "—"
+        lines.append(
+            f"| {acc.get('account_id', '—')} | {owner} | {acc.get('type', '—')} | {value_str} |"
+        )
+    return "\n".join(lines)

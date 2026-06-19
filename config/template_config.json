@@ -23,7 +23,7 @@
           "prompt": "Summarise the client's objectives and circumstances."
         },
         "holdings_table": {
-          "prompt": "List the client's accounts and their values as a markdown table."
+          "prompt": "You have been given a baseline holdings table built deterministically from the account database. Review the documents for any updated account values. Only replace a value in the table if ALL of the following are true: (1) the figure is exact and precise — do NOT use approximate or rounded figures such as 'around', 'approximately', 'a little over', 'roughly', or similar; (2) the figure comes from an official or formal source such as a platform statement or official valuation, NOT from casual mentions in meeting notes; (3) the date of that figure is explicitly later than the valuation_date shown in the account data above. If any condition is not met, keep the baseline figure unchanged. Output only the final markdown table, with no extra commentary."
         }
       }
     },

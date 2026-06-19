@@ -13,7 +13,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 from openai import OpenAI
 
-from agent_pipeline.accounts import format_accounts, load_accounts
+from agent_pipeline.accounts import build_holdings_table, format_accounts, load_accounts
 from document_formatter.formatting import format_document
 from document_formatter.loading import read_file
 
@@ -25,7 +25,7 @@ class ReportGenerator:
         self._openai = openai_client
         self._model = model
 
-    def generate(self, config: dict, context: str) -> str:
+    def generate(self, config: dict, context: str, precomputed: dict[str, str] | None = None) -> str:
         instructions = config.get("global_instructions", "")
         sections = []
         for section in config["sections"]:
@@ -34,7 +34,7 @@ class ReportGenerator:
             sections.append(
                 {
                     "title": section.get("title", ""),
-                    "content": self._build_section(section, context, instructions),
+                    "content": self._build_section(section, context, instructions, precomputed),
                 }
             )
         return format_document(config, sections)
@@ -52,10 +52,27 @@ class ReportGenerator:
         )
         return verdict.lower().startswith("y")
 
-    def _build_section(self, section: dict, context: str, instructions: str) -> str:
+    def _build_section(
+        self,
+        section: dict,
+        context: str,
+        instructions: str,
+        precomputed: dict[str, str] | None = None,
+    ) -> str:
         content = section["template"]
         for name, spec in section.get("placeholders", {}).items():
-            value = self._ask(f"{instructions}\n\n{spec['prompt']}", context)
+            baseline = (precomputed or {}).get(name)
+            if baseline:
+                prompt = (
+                    f"{instructions}\n\n"
+                    f"Baseline (built deterministically from the account database, "
+                    f"valuation dates shown in the account data above):\n\n"
+                    f"{baseline}\n\n"
+                    f"{spec['prompt']}"
+                )
+            else:
+                prompt = f"{instructions}\n\n{spec['prompt']}"
+            value = self._ask(prompt, context)
             content = content.replace(f"<<{name}>>", value)
         return content
 
@@ -100,9 +117,16 @@ def main() -> None:
 
     config = json.loads(args.config.read_text(encoding="utf-8"))
     client_dir = args.data_dir / args.client
+    db_path = client_dir / "client_data_db.json"
+
     filenames = sorted(path.name for path in client_dir.iterdir() if path.is_file())
     context = read_client_context(client_dir, filenames)
-    report = generator.generate(config, context)
+
+    precomputed: dict[str, str] = {}
+    if db_path.exists():
+        precomputed["holdings_table"] = build_holdings_table(load_accounts(db_path))
+
+    report = generator.generate(config, context, precomputed)
 
     client_num = "_".join(args.client.split("_")[:2])
     baseline_dir = args.output_dir / f"{client_num}_baseline"
@@ -116,7 +140,6 @@ def main() -> None:
     out_path.write_text(report, encoding="utf-8")
     print(f"Wrote {out_path}")
 
-    db_path = client_dir / "client_data_db.json"
     if db_path.exists():
         db = json.loads(db_path.read_text(encoding="utf-8"))
         accounts_json = format_accounts(db["snapshot_date"], load_accounts(db_path))
