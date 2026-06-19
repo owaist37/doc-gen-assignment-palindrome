@@ -74,6 +74,7 @@ def build_holdings_table(accounts: list[dict]) -> str:
     """Return a deterministic markdown table with columns Account | Owner | Type | Value."""
     lines = [
         "| Account | Owner | Type | Value |",
+        "|---------|-------|------|-------|"
     ]
     for acc in accounts:
         owner = "Joint" if acc.get("owner_type") == "joint" else (acc.get("owner") or "—")
