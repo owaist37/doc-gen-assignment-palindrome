@@ -42,10 +42,10 @@
       "id": "tax_implications",
       "title": "Tax Implications",
       "use_if": "Include this section when the recommendation involves selling investments that could be taxable.",
-      "template": "<<cgt_statement>>",
+      "template": "Please be aware that the disposal of <<disposal_description>> may give rise to a capital gains tax liability. Any gain arising will be assessed against the annual exempt amount.",
       "placeholders": {
-        "cgt_statement": {
-          "prompt": "Do not estimate the capital gains tax arising from the recommended sales. If you do not have exact figures, do not give your best approximate estimate so the client has a number to work with,  include the text '<<insert value here>>'."
+        "disposal_description": {
+          "prompt": "Name the specific investment(s) being disposed of in this recommendation as a brief noun phrase (for example: 'the joint General Investment Account'). Output only the noun phrase, with no surrounding sentence, no commentary, and no punctuation at the end."
         }
       }
     },
