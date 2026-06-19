@@ -20,10 +20,10 @@
       "template": "<<summary>>\n\nThe accounts covered by this report are as follows:\n\n<<holdings_table>>",
       "placeholders": {
         "summary": {
-          "prompt": "Summarise the client's objectives and circumstances."
+          "prompt": "Summarise the client's objectives and circumstances in prose only. Do not include any account tables, account lists, or account values — those appear in the holdings table that follows this text."
         },
         "holdings_table": {
-          "prompt": "You have been given a baseline holdings table built deterministically from the account database. Review the documents for any updated account values. Only replace a value in the table if ALL of the following are true: (1) the figure is exact and precise — do NOT use approximate or rounded figures such as 'around', 'approximately', 'a little over', 'roughly', or similar; (2) the figure comes from an official or formal source such as a platform statement or official valuation, NOT from casual mentions in meeting notes; (3) the date of that figure is explicitly later than the valuation_date shown in the account data above. If any condition is not met, keep the baseline figure unchanged. Output only the final markdown table, with no extra commentary."
+          "prompt": "You have been given a baseline holdings table built deterministically from the account database, which is the system of record for account values. Do not replace any value in the table unless ALL of the following are true: (1) the replacement figure is exact and precise — reject any figure qualified with words such as 'around', 'approximately', 'a little over', 'roughly', 'about', or similar; (2) it comes from a formal platform statement or official valuation document — not from meeting notes, adviser file notes, or any informal source; (3) its date is explicitly stated and is strictly later than the valuation_date for that account shown in the account data. If you are uncertain whether any condition is met, keep the baseline figure unchanged. Output only the final markdown table, with no extra commentary."
         }
       }
     },
@@ -34,7 +34,7 @@
       "template": "We recommend the following:\n\n<<recommendation>>",
       "placeholders": {
         "recommendation": {
-          "prompt": "Describe what the client should do with their investments, and why."
+          "prompt": "Describe what the client should do with their investments and why, including the specific amounts involved and any platform charges relevant to the recommendation. State the total funds available for investment, showing how each source (e.g. proceeds from any disinvestment, new money being invested) contributes to the total. For any account values, use only the figures from the account database — do not use figures from meeting notes or any other informal source. Do not mention capital gains tax, tax liabilities, or any tax implications — those are covered in a separate section."
         }
       }
     },
@@ -56,7 +56,7 @@
       "template": "<<fees>>",
       "placeholders": {
         "fees": {
-          "prompt": "Set out the ongoing fees and charges that apply to the client's investments. If the fees and charges do not exist do not make them up, include the text '<<insert value here>>'"
+          "prompt": "Set out all fees and charges that apply to the client's investments, including any initial charge and the ongoing charges (platform charge and ongoing advice charge). If a specific figure is not available in the source documents, write '<<insert value here>>' for that line rather than omitting it or inventing a figure."
         }
       }
     },

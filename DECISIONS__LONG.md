@@ -40,9 +40,12 @@ Client 01 focuses on two things the first is that the capital gains tax on any d
 ### Client 02
 For the conclusion the template has been updated to add in the standard risk statement the same way it is for the FCA regulation statement rather than being generated which could cause issues. This also makes it more inline with the template specification. This also stops the whole of the document being re-repeated for the section.
 
+### Client 03
+We can see that based on our changes that the CGT warning is in the recomendation section, the prompt needs to be updated to remove tax statements from this section. Along with this the GIA value is inconsistent. Along with this the prompt for the account values needed to be updated to ensure about and similar words aren't used to cause an approximation update. The recomendations prompt has also been updated to ensure that all of the avilable funds are used. 
 
 ## Determinisitic Processes
 ### Client 02
 The first thing we need to cover with client 2 is how the the values that go into the reports are generated, the first step is per database to get a single record for each of the accounts that is passed to the llm. This will reduce the token count and the amount of information the llm will have to process. It will also reduce any changes of hulucinations of figures. 
 
 The next step is to create a pre-populated holidings table rather than letting the llm create it as this will improve accuracy. The prompt can then be updated to include the conflict resolution with the statement_summary file. Alternatively this could be done in the table creation or have a tool created for it. 
+
