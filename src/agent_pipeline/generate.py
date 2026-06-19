@@ -7,6 +7,7 @@ Usage:
 import argparse
 import json
 import os
+from datetime import datetime
 from pathlib import Path
 
 from dotenv import load_dotenv
@@ -96,8 +97,15 @@ def main() -> None:
     context = read_client_context(client_dir, filenames)
     report = generator.generate(config, context)
 
-    args.output_dir.mkdir(parents=True, exist_ok=True)
-    out_path = args.output_dir / f"{args.client}.md"
+    client_num = "_".join(args.client.split("_")[:2])
+    baseline_dir = args.output_dir / f"{client_num}_baseline"
+    if not baseline_dir.exists():
+        run_dir = baseline_dir
+    else:
+        timestamp = datetime.now().strftime("%Y%m%d%H%M")
+        run_dir = args.output_dir / f"{client_num}_{timestamp}"
+    run_dir.mkdir(parents=True, exist_ok=True)
+    out_path = run_dir / f"{args.client}.md"
     out_path.write_text(report, encoding="utf-8")
     print(f"Wrote {out_path}")
 
