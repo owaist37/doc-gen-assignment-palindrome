@@ -20,7 +20,7 @@
       "template": "<<summary>>\n\nThe accounts covered by this report are as follows:\n\n<<holdings_table>>",
       "placeholders": {
         "summary": {
-          "prompt": "Summarise the client's objectives and circumstances in prose only. Do not include any account tables, account lists, or account values — those appear in the holdings table that follows this text."
+          "prompt": "Summarise the client's objectives and circumstances in prose only. Do not include any account tables, account lists, or account values — those appear in the holdings table that follows this text. Do not reference specific account performance, valuations, or figures from meeting notes; focus on the client's goals, risk profile, and personal circumstances only."
         },
         "holdings_table": {
           "prompt": "You have been given a baseline holdings table built deterministically from the account database, which is the system of record for account values. Do not replace any value in the table unless ALL of the following are true: (1) the replacement figure is exact and precise — reject any figure qualified with words such as 'around', 'approximately', 'a little over', 'roughly', 'about', or similar; (2) it comes from a formal platform statement or official valuation document — not from meeting notes, adviser file notes, or any informal source; (3) its date is explicitly stated and is strictly later than the valuation_date for that account shown in the account data. If you are uncertain whether any condition is met, keep the baseline figure unchanged. Output only the final markdown table, with no extra commentary."
@@ -34,7 +34,7 @@
       "template": "We recommend the following:\n\n<<recommendation>>",
       "placeholders": {
         "recommendation": {
-          "prompt": "Describe what the client should do with their investments and why, including the specific amounts involved and any platform charges relevant to the recommendation. State the total funds available for investment, showing how each source (e.g. proceeds from any disinvestment, new money being invested) contributes to the total. For ISA contributions, use the ISA headroom figures from the isa_headroom section above as the maximum new contribution per ISA — do not use the current ISA account value as the contribution amount. Show the allocation explicitly: total available funds minus ISA contributions (capped at the headroom per account) gives the balance for any remaining accounts such as a new joint investment account. For any account values, use only the figures from the account database — do not use figures from meeting notes or any other informal source. Do not mention capital gains tax, tax liabilities, or any tax implications — those are covered in a separate section."
+          "prompt": "Describe what the client should do with their investments and why, including the specific amounts involved and any platform charges relevant to the recommendation. Follow this structure exactly: (1) Pool all sources of funds together first — disinvestment proceeds and any new money are combined into a single total before any allocation is made. Do not add disinvestment proceeds again after the allocation; they are already counted in the total. (2) State the total available pool and how each source contributes to it. (3) Allocate from that pool: use the ISA headroom figures from the isa_headroom section above as the maximum new contribution per ISA — do not use the current ISA account value as the contribution amount. (4) The balance remaining after ISA contributions is what goes to any new account — total pool minus ISA contributions equals the new account balance, nothing more. For any account values, use only the figures from the account database — do not use figures from meeting notes or any other informal source. Do not mention capital gains tax, tax liabilities, or any tax implications — those are covered in a separate section."
         }
       }
     },
@@ -45,7 +45,7 @@
       "template": "Please be aware that the disposal of <<disposal_description>> may give rise to a capital gains tax liability. Any gain arising will be assessed against the annual exempt amount.",
       "placeholders": {
         "disposal_description": {
-          "prompt": "Name the specific investment(s) being disposed of in this recommendation as a brief noun phrase (for example: 'the joint General Investment Account'). Output only the noun phrase, with no surrounding sentence, no commentary, and no punctuation at the end. Do not estimate the capital gains tax arising from the recommended sales. If you do not have exact figures, do not give your best approximate estimate so the client has a number to work with,  include the text '<<insert value here>>'."
+          "prompt": "Name the specific investment(s) being disposed of in this recommendation as a brief noun phrase (for example: 'the joint General Investment Account'). Output only the noun phrase — no full sentence, no commentary, no punctuation at the end."
         }
       }
     },

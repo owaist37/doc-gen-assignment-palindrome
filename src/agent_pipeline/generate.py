@@ -13,7 +13,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 from openai import OpenAI
 
-from agent_pipeline.accounts import build_holdings_table, format_accounts, load_accounts
+from agent_pipeline.accounts import build_holdings_table, build_isa_headroom, format_accounts, load_accounts
 from document_formatter.formatting import format_document
 from document_formatter.loading import read_file
 
@@ -124,7 +124,11 @@ def main() -> None:
 
     precomputed: dict[str, str] = {}
     if db_path.exists():
-        precomputed["holdings_table"] = build_holdings_table(load_accounts(db_path))
+        accounts = load_accounts(db_path)
+        precomputed["holdings_table"] = build_holdings_table(accounts)
+        isa_headroom = build_isa_headroom(accounts)
+        if isa_headroom:
+            context += f"\n\n=== isa_headroom ===\n{isa_headroom}"
 
     report = generator.generate(config, context, precomputed)
 
@@ -146,6 +150,7 @@ def main() -> None:
         accounts_path = run_dir / "accounts.json"
         accounts_path.write_text(accounts_json, encoding="utf-8")
         print(f"Wrote {accounts_path}")
+
 
 
 if __name__ == "__main__":

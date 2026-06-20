@@ -1,0 +1,115 @@
+{
+  "snapshot_date": "2026-04-30",
+  "accounts": [
+    {
+      "account_id": "H4-ISA-J",
+      "platform": "Holloway",
+      "type": "Stocks & Shares ISA",
+      "owner": "James Whitmore",
+      "owner_type": "single",
+      "status": "open",
+      "value": 85000.0,
+      "currency": "GBP",
+      "valuation_date": "2026-04-30"
+    },
+    {
+      "account_id": "H4-GIA-HJ",
+      "platform": "Holloway",
+      "type": "General Investment Account",
+      "owner": "James Whitmore and Caroline Whitmore",
+      "owner_type": "joint",
+      "status": "open",
+      "value": 240000.0,
+      "currency": "GBP",
+      "valuation_date": "2026-02-28"
+    },
+    {
+      "account_id": "B4-SIPP-J",
+      "platform": "Brightwell",
+      "type": "SIPP",
+      "owner": "James Whitmore",
+      "owner_type": "single",
+      "status": "open",
+      "value": 610000.0,
+      "currency": "GBP",
+      "valuation_date": "2026-04-30"
+    },
+    {
+      "account_id": "B4-GIA-J",
+      "platform": "Brightwell",
+      "type": "General Investment Account",
+      "owner": "James Whitmore and Caroline Whitmore",
+      "owner_type": "joint",
+      "status": "open",
+      "value": 95000.0,
+      "currency": "GBP",
+      "valuation_date": "2026-04-30"
+    },
+    {
+      "account_id": "M4-BOND-J",
+      "platform": "Meridian",
+      "type": "Offshore Investment Bond",
+      "owner": "James Whitmore and Caroline Whitmore",
+      "owner_type": "joint",
+      "status": "open",
+      "value": 180000.0,
+      "currency": "GBP",
+      "valuation_date": "2026-04-30"
+    },
+    {
+      "account_id": "M4-CASH-J",
+      "platform": "Meridian",
+      "type": "Cash Account",
+      "owner": "James Whitmore",
+      "owner_type": "single",
+      "status": "open",
+      "value": 30000.0,
+      "currency": "GBP",
+      "valuation_date": "2026-04-30"
+    },
+    {
+      "account_id": "H4-ISA-C",
+      "platform": "Holloway",
+      "type": "Stocks & Shares ISA",
+      "owner": "Caroline Whitmore",
+      "owner_type": "single",
+      "status": "open",
+      "value": 82000.0,
+      "currency": "GBP",
+      "valuation_date": "2026-04-30"
+    },
+    {
+      "account_id": "B4-SIPP-C",
+      "platform": "Brightwell",
+      "type": "SIPP",
+      "owner": "Caroline Whitmore",
+      "owner_type": "single",
+      "status": "open",
+      "value": 430000.0,
+      "currency": "GBP",
+      "valuation_date": "2026-04-30"
+    },
+    {
+      "account_id": "M4-CASH-C",
+      "platform": "Meridian",
+      "type": "Cash Account",
+      "owner": "Caroline Whitmore",
+      "owner_type": "single",
+      "status": "open",
+      "value": null,
+      "currency": "GBP",
+      "valuation_date": null
+    },
+    {
+      "account_id": "M4-OLD-C",
+      "platform": "Meridian",
+      "type": "Cash Account",
+      "owner": "Caroline Whitmore",
+      "owner_type": "single",
+      "status": "closed",
+      "value": 0.0,
+      "currency": "GBP",
+      "valuation_date": "2025-11-30"
+    }
+  ]
+}

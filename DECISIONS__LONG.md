@@ -1,6 +1,6 @@
 # Decisions Long
 ## Document Purpouse
-This document contains a full list of all of the decisions made. This will be a superset of the decisions.md and be used for the interview presentation. 
+This document contains a full list of all of the updates and decisions made. This will be a superset of the decisions.md and be used for the interview presentation. 
 
 ## Current workflow
 The current structure calls an a llm that at each stage;
@@ -38,14 +38,18 @@ With the future structure we could also use the current breakdown of steps to cr
 Client 01 focuses on two things the first is that the capital gains tax on any disposal and the platform and adviser fees rates are confirmed before sending out to the recipants. We can see from the Fees & Charges section this is currently included in the output. This is currently done by chaning the prompts for capital gains tax and the fees. The FCA line is already fixed and therefore cannot be re-written. From the updated output we can see that the llm now does not make up the fees. Capital gains tax in this case is not applicable. 
 
 ### Client 02
-For the conclusion the template has been updated to add in the standard risk statement the same way it is for the FCA regulation statement rather than being generated which could cause issues. This also makes it more inline with the template specification. This also stops the whole of the document being re-repeated for the section.
+For the conclusion the template has been updated to add in the standard risk statement the same way it is for the FCA regulation statement rather than being generated which could cause issues. This also makes it more inline with the template specification. This also stops the whole of the document being re-repeated for the section. This also updates the conclusion to be more inline with what is expected from the template. The tax satement is update to be more inline with the template and ensure no values are made up or extra repeated contetent is generated. 
 
 ### Client 03
-We can see that based on our changes that the CGT warning is in the recomendation section, the prompt needs to be updated to remove tax statements from this section. Along with this the GIA value is inconsistent. Along with this the prompt for the account values needed to be updated to ensure about and similar words aren't used to cause an approximation update. The recomendations prompt has also been updated to ensure that all of the avilable funds are used. 
+We can see that based on our changes that the CGT warning is in the recomendation section, the prompt needs to be updated to remove tax statements from this section. Along with this the GIA value is inconsistent this was updated to ensure that it is correct. Along with this the prompt for the account values needed to be updated to ensure about and similar words aren't used to cause an approximation update. The recomendations prompt has also been updated to ensure that all of the avilable funds are used. 
+
+When making alterations the tax implications and background_objectives sections prompts had to be tightend as they were causing issues to arrise with some of the changes made. This meant ensuing that they were not repating any information from following sections or having context for other sections in the current section.
 
 ## Determinisitic Processes
 ### Client 02
-The first thing we need to cover with client 2 is how the the values that go into the reports are generated, the first step is per database to get a single record for each of the accounts that is passed to the llm. This will reduce the token count and the amount of information the llm will have to process. It will also reduce any changes of hulucinations of figures. 
+The first thing we need to cover with client 2 is how the the values that go into the reports are generated, the first step is per database to get a single record for each of the accounts that is passed to the llm. This will reduce the token count and the amount of information the llm will have to process. It will also reduce any changes of hulucinations of figures. This process also makes account_id the unique id for the table. 
 
-The next step is to create a pre-populated holidings table rather than letting the llm create it as this will improve accuracy. The prompt can then be updated to include the conflict resolution with the statement_summary file. Alternatively this could be done in the table creation or have a tool created for it. 
+The next step is to create a pre-populated holidings table rather than letting the llm create it as this will improve accuracy. The prompt can then be updated to include the conflict resolution with the statement_summary file. Alternatively this could be done in the table creation or have a tool created for it or a seperate sub process. 
 
+### Client 03
+Updating the prompt for the clients isa calculation did not work therfore we are going to precalculate the isa ammounts from the database so it can be used in the prompts. ALong with this the prompts are updated to ensure that the calculation is worked out as expected using the new values.

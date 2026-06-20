@@ -84,3 +84,23 @@ def build_holdings_table(accounts: list[dict]) -> str:
             f"| {acc.get('account_id', '—')} | {owner} | {acc.get('type', '—')} | {value_str} |"
         )
     return "\n".join(lines)
+
+
+ISA_ANNUAL_ALLOWANCE = 20_000
+
+
+def build_isa_headroom(accounts: list[dict], annual_allowance: int = ISA_ANNUAL_ALLOWANCE) -> str:
+    """Return a formatted summary of ISA subscription headroom per open ISA account."""
+    isa_accounts = [
+        a for a in accounts
+        if "ISA" in (a.get("type") or "") and a.get("status") == "open"
+    ]
+    if not isa_accounts:
+        return ""
+    lines = [
+        f"ISA annual subscription limit: £{annual_allowance:,} per person per tax year.",
+        "Headroom available (assumes no contributions made in the current tax year):",
+    ]
+    for acc in isa_accounts:
+        lines.append(f"  - {acc['account_id']} ({acc['owner']}): £{annual_allowance:,}")
+    return "\n".join(lines)
