@@ -123,9 +123,11 @@ def main() -> None:
     context = read_client_context(client_dir, filenames)
 
     precomputed: dict[str, str] = {}
+    db: dict | None = None
     if db_path.exists():
+        db = json.loads(db_path.read_text(encoding="utf-8"))
         accounts = load_accounts(db_path)
-        precomputed["holdings_table"] = build_holdings_table(accounts)
+        precomputed["holdings_table"] = build_holdings_table(accounts, db["snapshot_date"])
         isa_headroom = build_isa_headroom(accounts)
         if isa_headroom:
             context += f"\n\n=== isa_headroom ===\n{isa_headroom}"
@@ -144,8 +146,7 @@ def main() -> None:
     out_path.write_text(report, encoding="utf-8")
     print(f"Wrote {out_path}")
 
-    if db_path.exists():
-        db = json.loads(db_path.read_text(encoding="utf-8"))
+    if db is not None:
         accounts_json = format_accounts(db["snapshot_date"], load_accounts(db_path))
         accounts_path = run_dir / "accounts.json"
         accounts_path.write_text(accounts_json, encoding="utf-8")

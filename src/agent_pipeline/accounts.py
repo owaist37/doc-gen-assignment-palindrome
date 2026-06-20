@@ -70,8 +70,9 @@ def format_accounts(snapshot_date: str, accounts: list[dict]) -> str:
     return json.dumps({"snapshot_date": snapshot_date, "accounts": accounts}, indent=2)
 
 
-def build_holdings_table(accounts: list[dict]) -> str:
+def build_holdings_table(accounts: list[dict], snapshot_date: str | None = None) -> str:
     """Return a deterministic markdown table with columns Account | Owner | Type | Value."""
+    from datetime import date as _date
     lines = [
         "| Account | Owner | Type | Value |",
         "|---------|-------|------|-------|"
@@ -79,7 +80,11 @@ def build_holdings_table(accounts: list[dict]) -> str:
     for acc in accounts:
         owner = "Joint" if acc.get("owner_type") == "joint" else (acc.get("owner") or "—")
         value = acc.get("value")
+        val_date = acc.get("valuation_date")
         value_str = f"£{value:,.2f}" if value is not None else "—"
+        if snapshot_date and val_date and val_date != snapshot_date:
+            parsed = _date.fromisoformat(val_date)
+            value_str += f" (valued {parsed.strftime('%-d %b %Y')})"
         lines.append(
             f"| {acc.get('account_id', '—')} | {owner} | {acc.get('type', '—')} | {value_str} |"
         )

@@ -50,7 +50,9 @@ When making alterations the tax implications and background_objectives sections 
 ### Client 04
 When running client 04 there were a number of changes that need made the scope prompt in the introduction needed to ensure that it included all of the accounts rather than the examples listed in the text with the recomendations skippin SIPP top up. The prompt was updated to account for all products before going thorugh and making the calculation to ensure that there are no missing values. For the tax implication the example made the llm only look for matching cases. This was replaced with a more generic prompt. It also required the phrase "the dispoal of" to be moved into the prompt as the sentance structure when including it read awkwardly. 
 
-Including the SIPP in the recomendation broke some of the existing calculations. To ensure the correction did not break the calculations further the prompt needed to be updated to include guardrails around exclude contingent/unreceived amounts and requiring deductions before stating the net total.
+Including the SIPP in the recomendation broke some of the existing calculations. To ensure the correction did not break the calculations further the prompt needed to be updated to include guardrails around exclude contingent/unreceived amounts and requiring deductions before stating the net total. This also meant any calculations had to ensure that no calculations were made with assumed figures if one of the values is currently unkown.
+
+The meeting notes said not to include any closed accounts. There are two places that this could be updated in the table creation or the LLM prompt in this case the prompt has been updated so the account is not added back in once the LLM updates the values based on the documents.
 
 
 ## Determinisitic Processes
@@ -61,3 +63,6 @@ The next step is to create a pre-populated holidings table rather than letting t
 
 ### Client 03
 Updating the prompt for the clients isa calculation did not work therfore we are going to precalculate the isa ammounts from the database so it can be used in the prompts. ALong with this the prompts are updated to ensure that the calculation is worked out as expected using the new values.
+
+### Client 04
+In some cases there are stale readings that need to be taken into account. In our case there was a flag where there is a large difference between the snapshot date and the meeting date meaning the value could have changed significantly since then. In this case we will flag  those values. 

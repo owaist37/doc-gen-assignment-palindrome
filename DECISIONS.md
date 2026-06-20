@@ -35,5 +35,7 @@ When running client 04 there were a number of changes that need made the scope p
 ## Client 04 incorrect recomendations
 For the tax implication the example made the llm only look for matching cases. This was replaced with a more generic prompt. It also required the phrase "the dispoal of" to be moved into the prompt as the sentance structure when including it read awkwardly. 
 
+## Client 04 closed accounts
+The meeting notes said not to include any closed accounts. There are two places that this could be updated in the table creation or the LLM prompt in this case the prompt has been updated so the account is not added back in once the LLM updates the values based on the documents.
 
 ## How to take it further
