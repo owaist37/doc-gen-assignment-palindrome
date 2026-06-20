@@ -28,3 +28,12 @@ The cgt warining was appearing in the recomendations sesction. The prompt was up
 
 ## Client 03 inccorect isa valuues
 Updating the prompt for the clients isa calculation did not work therfore we are going to precalculate the isa ammounts from the database so it can be used in the prompts. ALong with this the prompts are updated to ensure that the calculation is worked out as expected using the new values.
+
+## Client 04 missing accounts
+When running client 04 there were a number of changes that need made the scope prompt in the introduction needed to ensure that it included all of the accounts rather than the examples listed in the text with the recomendations skippin SIPP top up. The prompt was updated to account for all products before going thorugh and making the calculation to ensure that there are no missing values.
+
+## Client 04 incorrect recomendations
+For the tax implication the example made the llm only look for matching cases. This was replaced with a more generic prompt. It also required the phrase "the dispoal of" to be moved into the prompt as the sentance structure when including it read awkwardly. 
+
+
+## How to take it further

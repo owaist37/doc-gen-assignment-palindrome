@@ -33,6 +33,8 @@ The current structure of the code can be considered a "simple" workflow that eac
 
 With the future structure we could also use the current breakdown of steps to create a supervisor agent that manages subagents for each part of the report or a router agent and then an agent that combines the outputs from each of the individual agents. 
 
+The current files are also small therfore chunking or verctorisation would take more time and cost to implment than be useful.
+
 ## Prompt updates
 ### Client 01
 Client 01 focuses on two things the first is that the capital gains tax on any disposal and the platform and adviser fees rates are confirmed before sending out to the recipants. We can see from the Fees & Charges section this is currently included in the output. This is currently done by chaning the prompts for capital gains tax and the fees. The FCA line is already fixed and therefore cannot be re-written. From the updated output we can see that the llm now does not make up the fees. Capital gains tax in this case is not applicable. 
@@ -46,7 +48,10 @@ We can see that based on our changes that the CGT warning is in the recomendatio
 When making alterations the tax implications and background_objectives sections prompts had to be tightend as they were causing issues to arrise with some of the changes made. This meant ensuing that they were not repating any information from following sections or having context for other sections in the current section.
 
 ### Client 04
-Improved the intorudction prompt to mention all of the account types not just sepcific accounts. 
+When running client 04 there were a number of changes that need made the scope prompt in the introduction needed to ensure that it included all of the accounts rather than the examples listed in the text with the recomendations skippin SIPP top up. The prompt was updated to account for all products before going thorugh and making the calculation to ensure that there are no missing values. For the tax implication the example made the llm only look for matching cases. This was replaced with a more generic prompt. It also required the phrase "the dispoal of" to be moved into the prompt as the sentance structure when including it read awkwardly. 
+
+Including the SIPP in the recomendation broke some of the existing calculations. To ensure the correction did not break the calculations further the prompt needed to be updated to include guardrails around exclude contingent/unreceived amounts and requiring deductions before stating the net total.
+
 
 ## Determinisitic Processes
 ### Client 02
