@@ -54,6 +54,12 @@ Including the SIPP in the recomendation broke some of the existing calculations.
 
 The meeting notes said not to include any closed accounts. There are two places that this could be updated in the table creation or the LLM prompt in this case the prompt has been updated so the account is not added back in once the LLM updates the values based on the documents.
 
+## Regression Testing
+Prompt changes made to fix Client 04 introduced errors in Client 03. Because all clients share the same `template_config.json`, a change to a shared prompt (e.g. the recommendations or holdings-table placeholder) can improve one client while breaking another.
+
+The practice adopted was: after any prompt change, re-run all previously passing clients and verify their outputs remain correct before committing. The timestamped run folders make it straightforward to compare a new output against the prior run for each client.
+
+The fix approach when regressions appear is to make prompts more specific and targeted — adding precise conditions or scoping constraints — rather than reverting. Broad rollbacks risk re-introducing the original bug.
 
 ## Determinisitic Processes
 ### Client 02
@@ -67,8 +73,42 @@ Updating the prompt for the clients isa calculation did not work therfore we are
 ### Client 04
 In some cases there are stale readings that need to be taken into account. In our case there was a flag where there is a large difference between the snapshot date and the meeting date meaning the value could have changed significantly since then. In this case we will flag  those values. 
 
-## LLM Judge 
-A basic LLM Judge has been implemented into the project it is a basic error checking judge. For each section/placeholder, global_instructions + the section prompt to over a context of all client source files. This is a basic judge that does not produce any weights. This allows us to track how the models would improve or get worse over time. This LLM judge could be improved by using a stronger model i.e. gpt-4o which would be more capable of spotting errors. Along with this we upgrade the judge to track token usage, latencty and cost.  It can also be extended to test different models and how well they perform. 
+## Prompt Guardrails
+A recurring failure mode across clients was the LLM silently hallucinating figures — using approximate values, combining accounts incorrectly, or inventing totals from incomplete data. Rather than relying on model accuracy alone, prompts were tightened with explicit guardrail rules that enumerate what the model must *not* do alongside what it should do.
+
+Examples of guardrail patterns used:
+
+- **Exclude contingent/unreceived amounts** — "Include only funds that have already been received and are immediately available for investment. Exclude earnouts, deferred payments, or not-yet-received amounts."
+- **Deduct before stating a net total** — deductions are forced to happen before the total is named so the model cannot state a gross figure as net.
+- **No assumed figures** — "If a value is unknown, write `<<insert value here>>` and do not attempt to calculate a running balance for that step."
+- **Explicit ordered steps** — the recommendation prompt uses a numbered sequence (pool funds → state net total → ISA allocation → remaining products → any new account) to prevent the model reordering or double-counting.
+
+### Account/prompt structure ambiguity
+When a portfolio contains multiple accounts of the same type (e.g. two ISAs on different platforms), the LLM was referencing the wrong one or merging both. The fix was a guardrail instructing the model to resolve ambiguity by matching the platform name in the "Selling existing investments?" field of the report request against the account database, then referencing only that specific account ID. This prevents cross-account confusion without requiring a structural change to the pipeline.
+
+## LLM Judge
+A basic LLM Judge has been implemented into the project. For each section it combines `global_instructions` and the section's placeholder prompts with the full client source context, then asks the LLM to check the generated content for conformance. This allows us to track how outputs improve or degrade across runs without manually diffing reports.
+
+### Verdict schema
+Each judge call returns a structured JSON verdict:
+```json
+{ "conforms": true | false, "errors": [{ "description": "...", "severity": "low | medium | high", "recommended_fix": "..." }] }
+```
+Severity levels (`low / medium / high`) allow prioritisation of issues. If there are no errors the `errors` array is empty.
+
+### `<<insert value here>>` placeholder handling
+When the LLM cannot derive a figure from source documents it writes `<<insert value here>>` rather than inventing a value. The judge explicitly filters these markers out and does not flag them as errors. This separates "value unknown — adviser to fill in" (correct behaviour) from "the LLM made something up" (an error that should be flagged).
+
+### Output artifacts
+Two outputs are produced per judged run:
+- `judge_report.md` written into the run folder with per-section error listings and a summary error-count table.
+- A row appended to `outputs/run_metrics.csv` with `judged_at`, `run_dir`, `client`, `model`, per-section error counts, and `total_errors`. This enables trend tracking across runs without manually reviewing reports.
+
+### `use_if` presence/absence checking
+The judge also evaluates conditional sections. For any section with a non-`always` `use_if` rule it asks the LLM whether that section should be present given the client data, then flags a mismatch — section present when it shouldn't be, or absent when it should be. This mirrors the generation-time logic and catches cases where the generator made the wrong inclusion decision.
+
+### Integrated into the regular pipeline
+The judge runs automatically at the end of every `generate` run — each run self-evaluates immediately after the report is written. This LLM judge could be improved by using a stronger model (e.g. gpt-4o) and extended to track token usage, latency, and cost.
 
 ## Future work 
 ### Updating Tooling

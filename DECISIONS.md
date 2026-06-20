@@ -39,10 +39,13 @@ For the tax implication the example made the llm only look for matching cases. T
 The meeting notes said not to include any closed accounts. There are two places that this could be updated in the table creation or the LLM prompt in this case the prompt has been updated so the account is not added back in once the LLM updates the values based on the documents.
 
 ## Regression test
-Some of the fixes for client 4 intorduced errors for client 3. The prompts created in section 3 has to ensure that the correct results were still being produced for previous clients. 
+Some of the fixes for client 4 introduced errors for client 3. The prompts created in section 3 had to ensure that the correct results were still being produced for previous clients. The approach taken was to make prompts more specific and targeted rather than reverting, to avoid re-introducing the original bug.
 
-## LLM judge 
-An llm judge has been created that will check the output report against the prompts that were used and the me. It is a basic llm judge and captures 
+## Prompt guardrails
+Prompts were tightened with explicit exclusion rules to prevent hallucinated figures — excluding contingent amounts, requiring deductions before stating a net total, using ordered calculation steps, and writing `<<insert value here>>` when a value cannot be derived. Where multiple accounts of the same type exist, the model is instructed to match by platform name to identify the specific account ID rather than merging or guessing.
+
+## LLM judge
+An LLM judge has been implemented that checks each section of the generated report against the section prompt and global instructions, using the client source files as context. It returns a structured JSON verdict with severity-rated errors (`low / medium / high`). Outputs are a `judge_report.md` per run and a row appended to `run_metrics.csv` for trend tracking. The judge also checks conditional sections for presence/absence mismatches and runs automatically at the end of every generate run.
 
 
 ## Future work 
