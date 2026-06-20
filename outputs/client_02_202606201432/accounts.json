@@ -1,0 +1,38 @@
+{
+  "snapshot_date": "2026-04-30",
+  "accounts": [
+    {
+      "account_id": "H-ISA-D",
+      "platform": "Holloway",
+      "type": "Stocks & Shares ISA",
+      "owner": "David Clarke",
+      "owner_type": "single",
+      "status": "open",
+      "value": 61000.0,
+      "currency": "GBP",
+      "valuation_date": "2026-04-30"
+    },
+    {
+      "account_id": "H-GIA-J",
+      "platform": "Holloway",
+      "type": "General Investment Account",
+      "owner": "David Clarke and Susan Clarke",
+      "owner_type": "joint",
+      "status": "open",
+      "value": 40000.0,
+      "currency": "GBP",
+      "valuation_date": "2026-03-15"
+    },
+    {
+      "account_id": "H-ISA-S",
+      "platform": "Holloway",
+      "type": "Stocks & Shares ISA",
+      "owner": "Susan Clarke",
+      "owner_type": "single",
+      "status": "open",
+      "value": 58500.0,
+      "currency": "GBP",
+      "valuation_date": "2026-04-30"
+    }
+  ]
+}

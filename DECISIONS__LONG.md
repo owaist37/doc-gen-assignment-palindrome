@@ -66,3 +66,5 @@ Updating the prompt for the clients isa calculation did not work therfore we are
 
 ### Client 04
 In some cases there are stale readings that need to be taken into account. In our case there was a flag where there is a large difference between the snapshot date and the meeting date meaning the value could have changed significantly since then. In this case we will flag  those values. 
+
+## LLM Judge a 

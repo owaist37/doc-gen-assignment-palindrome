@@ -38,4 +38,19 @@ For the tax implication the example made the llm only look for matching cases. T
 ## Client 04 closed accounts
 The meeting notes said not to include any closed accounts. There are two places that this could be updated in the table creation or the LLM prompt in this case the prompt has been updated so the account is not added back in once the LLM updates the values based on the documents.
 
-## How to take it further
+## Regression test
+Some of the fixes for client 4 intorduced errors for client 3. The prompts created in section 3 has to ensure that the correct results were still being produced for previous clients. 
+
+## LLM judge 
+An llm judge has been created that will check the output report against the prompts that were used and the me. It is a basic llm judge and captures 
+
+
+## Future work
+
+
+- Make use_if more determenistic as it can change between different runs and currently based on an LLM reply which could respond with a different value
+- Remove full documnent parsing for every llm call
+- Add a feedback loop for each of the sections to validate the outputs
+- Add a method for evaluating the outputs for each of the runs
+- Move towards and agentic workflow
+
