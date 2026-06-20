@@ -9,7 +9,7 @@
       "template": "Further to our recent discussions, we are writing to set out our advice in relation to <<scope>>. This advice is based on the information currently available to us.\n\nThis firm is authorised and regulated by the Financial Conduct Authority.",
       "placeholders": {
         "scope": {
-          "prompt": "Say which of the client's accounts this report relates to."
+          "prompt": "Output a brief noun phrase naming the accounts this report covers. Do not write a full sentence — the phrase slots into 'we are writing to set out our advice in relation to [your output]', so it must read as a continuation of that sentence."
         }
       }
     },
@@ -34,7 +34,7 @@
       "template": "We recommend the following:\n\n<<recommendation>>",
       "placeholders": {
         "recommendation": {
-          "prompt": "Describe what the client should do with their investments and why, including the specific amounts involved and any platform charges relevant to the recommendation. State the total funds available for investment, showing how each source (e.g. proceeds from any disinvestment, new money being invested) contributes to the total. For any account values, use only the figures from the account database — do not use figures from meeting notes or any other informal source. Do not mention capital gains tax, tax liabilities, or any tax implications — those are covered in a separate section."
+          "prompt": "Describe what the client should do with their investments and why, including the specific amounts involved and any platform charges relevant to the recommendation. State the total funds available for investment, showing how each source (e.g. proceeds from any disinvestment, new money being invested) contributes to the total. For ISA contributions, use the ISA headroom figures from the isa_headroom section above as the maximum new contribution per ISA — do not use the current ISA account value as the contribution amount. Show the allocation explicitly: total available funds minus ISA contributions (capped at the headroom per account) gives the balance for any remaining accounts such as a new joint investment account. For any account values, use only the figures from the account database — do not use figures from meeting notes or any other informal source. Do not mention capital gains tax, tax liabilities, or any tax implications — those are covered in a separate section."
         }
       }
     },
@@ -45,7 +45,7 @@
       "template": "Please be aware that the disposal of <<disposal_description>> may give rise to a capital gains tax liability. Any gain arising will be assessed against the annual exempt amount.",
       "placeholders": {
         "disposal_description": {
-          "prompt": "Name the specific investment(s) being disposed of in this recommendation as a brief noun phrase (for example: 'the joint General Investment Account'). Output only the noun phrase, with no surrounding sentence, no commentary, and no punctuation at the end."
+          "prompt": "Name the specific investment(s) being disposed of in this recommendation as a brief noun phrase (for example: 'the joint General Investment Account'). Output only the noun phrase, with no surrounding sentence, no commentary, and no punctuation at the end. Do not estimate the capital gains tax arising from the recommended sales. If you do not have exact figures, do not give your best approximate estimate so the client has a number to work with,  include the text '<<insert value here>>'."
         }
       }
     },
