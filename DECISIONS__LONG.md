@@ -67,4 +67,14 @@ Updating the prompt for the clients isa calculation did not work therfore we are
 ### Client 04
 In some cases there are stale readings that need to be taken into account. In our case there was a flag where there is a large difference between the snapshot date and the meeting date meaning the value could have changed significantly since then. In this case we will flag  those values. 
 
-## LLM Judge a 
+## LLM Judge 
+A basic LLM Judge has been implemented into the project it is a basic error checking judge. For each section/placeholder, global_instructions + the section prompt to over a context of all client source files. This is a basic judge that does not produce any weights. This allows us to track how the models would improve or get worse over time.
+
+
+
+- Make use_if more determenistic as it can change between different runs and currently based on an LLM reply which could respond with a different value
+- Remove full documnent parsing for every llm call
+- Add a feedback loop for each of the sections to validate the outputs
+- Add a method for evaluating the outputs for each of the runs
+- Move towards and agentic workflow
+

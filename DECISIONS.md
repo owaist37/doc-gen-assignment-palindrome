@@ -54,3 +54,7 @@ An llm judge has been created that will check the output report against the prom
 - Add a method for evaluating the outputs for each of the runs
 - Move towards and agentic workflow
 
+
+Judge inherits generation's model (a stronger judge model could be set via env); counts are LLM-derived and will vary, severity captured for later weighting/scoring.
+
+Let me know what you'd like changed, or I'll re-submit for approval.

@@ -1,0 +1,2 @@
+judged_at,run_dir,client,model,global_rule_errors,introduction_errors,background_objectives_errors,recommendations_errors,tax_implications_errors,fees_charges_errors,conclusion_errors,total_errors
+2026-06-20T14:53:43,outputs/client_04_202606201439,client_04_stretch,gpt-4o-mini,2,1,2,3,0,0,0,8
