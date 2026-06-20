@@ -45,6 +45,9 @@ We can see that based on our changes that the CGT warning is in the recomendatio
 
 When making alterations the tax implications and background_objectives sections prompts had to be tightend as they were causing issues to arrise with some of the changes made. This meant ensuing that they were not repating any information from following sections or having context for other sections in the current section.
 
+### Client 04
+Improved the intorudction prompt to mention all of the account types not just sepcific accounts. 
+
 ## Determinisitic Processes
 ### Client 02
 The first thing we need to cover with client 2 is how the the values that go into the reports are generated, the first step is per database to get a single record for each of the accounts that is passed to the llm. This will reduce the token count and the amount of information the llm will have to process. It will also reduce any changes of hulucinations of figures. This process also makes account_id the unique id for the table. 

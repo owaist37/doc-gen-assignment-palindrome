@@ -9,7 +9,7 @@
       "template": "Further to our recent discussions, we are writing to set out our advice in relation to <<scope>>. This advice is based on the information currently available to us.\n\nThis firm is authorised and regulated by the Financial Conduct Authority.",
       "placeholders": {
         "scope": {
-          "prompt": "Output a brief noun phrase naming the accounts this report covers. Do not write a full sentence — the phrase slots into 'we are writing to set out our advice in relation to [your output]', so it must read as a continuation of that sentence."
+          "prompt": "Output a brief noun phrase naming the accounts this report covers, derived from the 'Accounts covered' field in the report request document. Include every account type listed there — do not omit any. Do not write a full sentence — the phrase slots into 'we are writing to set out our advice in relation to [your output]', so it must read as a continuation of that sentence."
         }
       }
     },
