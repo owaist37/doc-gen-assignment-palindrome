@@ -152,6 +152,17 @@ def main() -> None:
         accounts_path.write_text(accounts_json, encoding="utf-8")
         print(f"Wrote {accounts_path}")
 
+    from agent_pipeline.judge import ReportJudge, _csv_path_for, _append_metrics_row
+    print(f"\nJudging {run_dir.name} ...")
+    judge = ReportJudge(OpenAI(), os.environ.get("OPENAI_MODEL", "gpt-4o-mini"), config)
+    section_ids = [s["id"] for s in config["sections"]]
+    metrics = judge.judge_run(run_dir, args.data_dir)
+    if metrics:
+        csv_path = _csv_path_for(run_dir)
+        _append_metrics_row(csv_path, metrics, section_ids)
+        print(f"  Total errors: {metrics['total_errors']}")
+        print(f"\nMetrics written to {csv_path}")
+
 
 
 if __name__ == "__main__":

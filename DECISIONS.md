@@ -45,16 +45,22 @@ Some of the fixes for client 4 intorduced errors for client 3. The prompts creat
 An llm judge has been created that will check the output report against the prompts that were used and the me. It is a basic llm judge and captures 
 
 
-## Future work
+## Future work 
+### Updating Tooling
+Rather than focusing on updating the existing funcationality using base python the tooling could be updated to enable more features. This also include using pydantic for allowing checking of types and options within the data. Along with this we could use langraph and langsmith to standerdise the way each indibidual component of the llm is built and how each model call is traced allowing for more evaluation metrics and understanding of the process. 
+
+### Agentic Architecture
+Based on our earlier analysis there is a lot of future work that can be carried out. The first one is agentic archietcture we could move to a agent for each of the sections and a supervisor agent that will we pick which agents to use based on the report configurations alternatively a routing and sytnthesisng agent that will split the requirements up and put it into a sinuglar document. This could give us more flexiability and mangement of what we can do. Along with this we could add some of the numerical calculations as tools rather than calculating them beforehand such as creating a tool for adding up account values to ensure it is calculated correctly. 
+
+Along with this the judge can be updated to be included in a feedback loop that will allow for the correcion of the mistakes that are made.
 
 
-- Make use_if more determenistic as it can change between different runs and currently based on an LLM reply which could respond with a different value
-- Remove full documnent parsing for every llm call
-- Add a feedback loop for each of the sections to validate the outputs
-- Add a method for evaluating the outputs for each of the runs
-- Move towards and agentic workflow
+### Update use if condition
+Currently the llm decides if a section is needed or not if the use_if is not always currently this is only one section. In the future this may increase to a number of sections. It would be possible to create a facts sheet that as part of full document parsing that returns a structure allowing us to know what should and shouldn't be created each run.
+
+### Remove full document parsing 
+Currently each LLM call parses the full document, for the size of our documents chunking would be costly. Another option is to split the pipeline further so that we create a number of documents that is passed. This could mean creating a finalised accouts table that will include information from the text and the tabular data. This will allow us to create tools for each of the calculations. We can then also create a singular document from all of the documents that can be consildated and correct to ensure that there are no conflicing facts. This also means less information and processing needs to be calculated for each section. 
 
 
-Judge inherits generation's model (a stronger judge model could be set via env); counts are LLM-derived and will vary, severity captured for later weighting/scoring.
-
-Let me know what you'd like changed, or I'll re-submit for approval.
+### Agentic Implementation
+Currently it is still a number of attached LLM calls with a single feedback loop. This could be transformed into a more agentic solution where it can decide when and if human input is needed and when the task is accurate enough to mark it as complete.

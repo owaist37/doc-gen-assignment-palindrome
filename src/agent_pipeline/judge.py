@@ -83,6 +83,16 @@ class ReportJudge:
     # Judgement calls
     # ------------------------------------------------------------------
 
+    @staticmethod
+    def _filter_placeholder_errors(result: dict) -> dict:
+        """Drop errors that flag the intentional <<insert value here>> placeholder."""
+        marker = "<<insert value here>>"
+        kept = [
+            e for e in result.get("errors", [])
+            if marker not in e.get("description", "") and marker not in e.get("recommended_fix", "")
+        ]
+        return {"conforms": len(kept) == 0, "errors": kept}
+
     def judge_global(self, report_text: str, context: str) -> dict:
         """Check the whole report against global_instructions."""
         instruction = (
@@ -202,7 +212,7 @@ class ReportJudge:
         sections_by_title = self.parse_report_sections(report_text)
 
         # Global check
-        global_result = self.judge_global(report_text, context)
+        global_result = self._filter_placeholder_errors(self.judge_global(report_text, context))
         print(f"  Global rules: {len(global_result.get('errors', []))} error(s)")
 
         # Per-section checks
@@ -215,7 +225,9 @@ class ReportJudge:
             use_if_mismatch = self._check_use_if(section_cfg, is_present, context)
 
             if is_present:
-                result = self.judge_section(section_cfg, sections_by_title[title], context)
+                result = self._filter_placeholder_errors(
+                    self.judge_section(section_cfg, sections_by_title[title], context)
+                )
                 if use_if_mismatch:
                     result["errors"].insert(0, {
                         "description": "Section is present but should not be included per the use_if rule.",

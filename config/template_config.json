@@ -1,6 +1,6 @@
 {
   "document_title": "Investment Advice Report",
-  "global_instructions": "You are writing sections of a financial advice report addressed to the client. Write in clear, professional British English, always in the first-person plural ('we', 'our', 'us'). Never use first-person singular ('I', 'me', 'my'). Output only the text for the section itself, with no extra headings or commentary.",
+  "global_instructions": "You are writing sections of a financial advice report addressed to the client. Write in clear, professional British English, always in the first-person plural ('we', 'our', 'us'). Never use first-person singular ('I', 'me', 'my'). Output only the text for the section itself, with no extra headings or commentary. If any required figure cannot be determined with certainty from the source documents, write '<<insert value here>>' in its place — do not estimate, approximate, or invent figures. If a calculation cannot be completed because one or more inputs are unknown, write '<<insert value here>>' for the result rather than attempting a partial or speculative calculation.",
   "sections": [
     {
       "id": "introduction",
